@@ -47,7 +47,7 @@ phases:
     
 reactions:
 - equation: O3 + I-  => O2 + IO- 
-  rate-constant: {A: 1.0e+11, b: 0.0, Ea: 8500} 
+  rate-constant: {A: 2.6e+11, b: 0.0, Ea: 10600} 
 - equation: I2 + H2O => I2OH- + H+ # corrected with addition of H2O
   rate-constant: {A: 0.058, b: 0.0, Ea: 0.0 } #3.2/55.5
 - equation: I2OH- + H+ => I2 + H2O #addition of H2O, no need to change rate for the product

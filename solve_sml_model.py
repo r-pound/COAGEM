@@ -82,14 +82,24 @@ def define_species_database():
     species_database = pd.DataFrame(data,columns=names)
 
     return species_database
+####################################################################################################################
+def O3_Iod_rate(T,scheme):
+    """
+    central definitions of the O3 + I- rate coefficient
+    """
+    if scheme == 'brown':
+        K = 2.6E11*np.exp((-10600/(8.31*T)))
+    elif scheme == 'magi':
+        K = np.exp((-8772.2/T)+51.5)
+    return K    
 #####################################################################################################################
-def SML_h(T,species_database):
+def SML_h(T,species_database,scheme):
     """
     Calculate the depth of the surface microlayer and return result in m from Luhar et.al 2019
     """
 
     D = 1.1e-6*np.exp(-1896/T)
-    K0 = 1.44E+22*np.exp(-73080/(T*8.3144))
+    K0 = O3_Iod_rate(T,scheme)
     h = np.sqrt(D/(K0 * species_database.loc[species_database['name'] == 'I-', ['conc']].values[0][0]))
 
     return h
@@ -205,16 +215,13 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
     Rb = (5/u_star)*transfer.Sc_air(spec_comp,T-273.15)**(2.0/3.0)
     alpha = 10**(-0.25-0.013*(T - 273.16))
     Diff = 1.1E-6*np.exp(-1896/T)
-    if rate == 'brown':
-        react = np.exp((-4304/(8.31*T))+23.3)#1.5E9
-    elif rate == 'magi':
-        react = np.exp((-8772.2/T)+51.5)
+    react = O3_Iod_rate(T,rate)
 
     if ConcAfterChem:
         CAC = pd.DataFrame(columns=["Time"]+species_database['name'].values.tolist())
 
     for i in range(int(t_total/dt_max)): #calculate total number of timesteps needed
-        h = SML_h(T,species_database)*10 #get the depth of the SML and convert to dm
+        h = SML_h(T,species_database,rate)*10 #get the depth of the SML and convert to dm
         #advance chemistry
         species_database = Chemistry_solver(species_database,timesteps=1,T=T,\
                             dt_max=dt_max,eqn_file=chem_scheme)
