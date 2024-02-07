@@ -1,0 +1,12 @@
+name: ct-env
+channels:
+     - cantera
+     - defaults
+dependencies:
+     - python==3.9.7
+     - ipython
+     - matplotlib
+     - pandas==1.3.2
+     - scipy
+     - numpy
+     - cantera==2.5.1
