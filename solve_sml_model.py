@@ -360,10 +360,8 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
 #####################################################################################################################
 #############################################################################################
 def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],S=35,\
-                    chemistry='sml_cantera_base.yaml',outputdir='new_base',con_Iod=False,rate='magi',R=0.9):
-
-    dt_max = 0.0001
-    t_total = 1.5
+                    chemistry='sml_cantera_base.yaml',outputdir='new_base',con_Iod=False,rate='magi',\
+                    R=0.9,dt_max=0.0001,t_total=4):
 
     for O3 in O3_range:
         for I in I_range:
@@ -410,4 +408,5 @@ if __name__ == "__main__":
     outdir = ['./']
     run_sensitivity(ws_range=[ws],T_range=[T],O3_range=[O3],I_range=[I],\
                     chemistry=f'sml_cantera_{chems[0]}.yaml',S=S,\
-                    outputdir=outdir[0],con_Iod=con_Iod[0],rate=rate[0],R=R)
+                    outputdir=outdir[0],con_Iod=con_Iod[0],rate=rate[0],R=R,\
+                    dt_max=dt_max,t_total=t_total)
