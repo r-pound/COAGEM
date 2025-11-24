@@ -1,0 +1,14 @@
+name: MM_SML
+channels:
+     - cantera
+     - defaults
+     - conda-forge
+dependencies:
+     - python
+     - ipython
+     - matplotlib
+     - pandas
+     - scipy
+     - numpy
+     - cantera
+     - gsw
