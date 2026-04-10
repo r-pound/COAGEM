@@ -104,7 +104,7 @@ def SML_h(T,species_database,scheme):
 
     return h
 #####################################################################################################################
-def Chemistry_solver(species_database,timesteps=100000,T=288,dt_max=0.00001,eqn_file='sml_cantera_base.yaml'):
+def Chemistry_solver(species_database,T=288,dt_max=0.00001,eqn_file='sml_cantera_base.yaml'):
     """
     Initial implementation for cantera solved SML O3 Iodide chemistry scheme -
     output units in Mol fraction so need to be converted to mol dm-3
@@ -136,7 +136,7 @@ def Chemistry_solver(species_database,timesteps=100000,T=288,dt_max=0.00001,eqn_
     sim.verbose = False
 
     #timestep settings
-    t_end = timesteps*dt_max
+    t_end = dt_max
     states = ct.SolutionArray(sml, extra=['t'])
 
     #advance chemistry through to max time time, keeping track of states on route
@@ -227,7 +227,7 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
     while not(convergence):
         h = SML_h(T,species_database,rate)*10 #get the depth of the SML and convert to dm
         #advance chemistry
-        species_database = Chemistry_solver(species_database,timesteps=1,T=T,\
+        species_database = Chemistry_solver(species_database,T=T,\
                             dt_max=dt_max,eqn_file=chem_scheme)
         if ConcAfterChem and (int(np.mod(i,(0.025/dt_max))) == 0):
             names = species_database['name'].values
@@ -323,7 +323,8 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
         O3_gain = (1/Rt)*100 # output units in cm/s
 
         #limit the frequency of timesteps written to file
-        if int(np.mod(i,(0.025/dt_max))) == 0:
+        if int(np.mod(tstep,(0.025/dt_max))) == 0:
+            print(f'{tstep}',end='\r', flush=True)
             if chem_scheme=='sml_cantera_base.yaml':
                 row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr]
             elif chem_scheme=='sml_cantera_schneider.yaml' or \
@@ -331,7 +332,7 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
                  chem_scheme=='sml_cantera_schneider_Clsen2.yaml':
                 row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_HOCl]
             else:
-                row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
+                row_state = [dt_max*(tstep+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
                              Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]
 
             names = species_database['name'].values
@@ -357,11 +358,8 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
         #zero out O2 as this is a dead end in the system       
         species_database.loc[species_database['name'] == f'O2', ['conc']]  = 0.0
         
-        #zero out O2 as this is a dead end in the system       
-        species_database.loc[species_database['name'] == f'O2', ['conc']]  = 0.0
-
         # stabalised HOI flux is our flag for deciding if we have reached equilibirum, while allowing for a minimum run time
-        if ((np.abs(FluxA_HOI-prev_dep)/prev_dep)*100 < 1e-5) & (tstep>1000):
+        if ((np.abs(FluxA_HOI-prev_dep)/prev_dep)*100 < 1e-4) & (tstep>1000):
             convergence = True
         else:
             tstep += 1
@@ -380,7 +378,7 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
          chem_scheme=='sml_cantera_schneider_Clsen2.yaml':
          row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_HOCl]
     else:
-         row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
+         row_state = [dt_max*(tstep+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
                       Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]#,h/10]
 
     names = species_database['name'].values
@@ -424,7 +422,7 @@ def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],S=35,
                     spec_database.loc[spec_database['name']=='O3g',['conc']] = O3_val
                     result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,con_Iod=con_Iod,chem_scheme=chemistry,rate=rate,R=R)
                 
-                    result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}.csv')
+                    result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}_{dt_max}_optimum.csv')
 #############################################################################################
 if __name__ == "__main__":
  
@@ -436,8 +434,8 @@ if __name__ == "__main__":
     T  = float(args[4])
     S = 35
     R = 0.9
-    dt_max = 0.0001
-    t_total = 4
+    dt_max = 0.0002
+    t_total = 15
     O3_val = O3*4.15E-11
     chems = ['brown_cl']
     con_Iod = [False]
