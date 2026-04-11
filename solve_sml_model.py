@@ -320,15 +320,8 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
 
         #limit the frequency of timesteps written to file
         if int(np.mod(i,(0.025/dt_max))) == 0:
-            if chem_scheme=='sml_cantera_base.yaml':
-                row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr]
-            elif chem_scheme=='sml_cantera_schneider.yaml' or \
-                 chem_scheme=='sml_cantera_schneider_Clsen.yaml' or \
-                 chem_scheme=='sml_cantera_schneider_Clsen2.yaml':
-                row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_HOCl]
-            else:
-                row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
-                             Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]
+            row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
+                         Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]
 
             names = species_database['name'].values
             for j in range(len(names)):
