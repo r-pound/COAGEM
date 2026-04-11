@@ -393,7 +393,7 @@ def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],pH=[8
 
                     result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,con_Iod=con_Iod,chem_scheme=chemistry,rate=rate,R=R)
                 
-                    result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}.csv')
+                    result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
 #############################################################################################
 if __name__ == "__main__":
  
