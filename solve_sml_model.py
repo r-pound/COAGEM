@@ -361,31 +361,26 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
 #############################################################################################
 def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],S=35,\
                     chemistry='sml_cantera_base.yaml',outputdir='new_base',con_Iod=False,rate='magi',\
-                    R=0.9,dt_max=0.0001,t_total=4):
+                    R=0.9,dt_max=0.0001,t_total=4,ConcAfterChem=False):
 
     for O3 in O3_range:
         for I in I_range:
             for ws in ws_range:
                 for T in T_range:
                     spec_database = define_species_database()
- 
                     spec_database.loc[spec_database['name'] == 'I-', ['conc']] = I*1E-9
                     spec_database.loc[spec_database['name'] == 'I-_bulk', ['conc']] = I*1E-9
-
-                    if outputdir == 'no_chlorine':
-                        spec_database.loc[spec_database['name'] == 'Cl-', ['conc']] = 0
-                        spec_database.loc[spec_database['name'] == 'Cl-_bulk', ['conc']] = 0
-                    if outputdir == 'no_bromine':
-                        spec_database.loc[spec_database['name'] == 'Br-', ['conc']] = 0
-                        spec_database.loc[spec_database['name'] == 'Br-_bulk', ['conc']] = 0
-                    if outputdir == 'no_bromine_chlorine':
-                        spec_database.loc[spec_database['name'] == 'Cl-', ['conc']] = 0
-                        spec_database.loc[spec_database['name'] == 'Cl-_bulk', ['conc']] = 0
-                        spec_database.loc[spec_database['name'] == 'Br-', ['conc']] = 0
-                        spec_database.loc[spec_database['name'] == 'Br-_bulk', ['conc']] = 0
                     O3_val = O3*4.15E-11
                     spec_database.loc[spec_database['name']=='O3g',['conc']] = O3_val
-                    result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,con_Iod=con_Iod,chem_scheme=chemistry,rate=rate,R=R)
+                    if ConcAfterChem:
+                        result,spec_database,CAC = new_model(T,ws,S,spec_database,dt_max,t_total,\
+                                                             con_Iod=con_Iod,chem_scheme=chemistry,\
+                                                             rate=rate,R=R,ConcAfterChem=ConcAfterChem)
+                        CAC.to_csv(f'{outputdir}/ConcAfterChem_O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
+                    else: 
+                        result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,\
+                                                        con_Iod=con_Iod,chem_scheme=chemistry,\
+                                                        rate=rate,R=R)
                 
                     result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}.csv')
 #############################################################################################
@@ -409,4 +404,4 @@ if __name__ == "__main__":
     run_sensitivity(ws_range=[ws],T_range=[T],O3_range=[O3],I_range=[I],\
                     chemistry=f'sml_cantera_{chems[0]}.yaml',S=S,\
                     outputdir=outdir[0],con_Iod=con_Iod[0],rate=rate[0],R=R,\
-                    dt_max=dt_max,t_total=t_total)
+                    dt_max=dt_max,t_total=t_total,ConcAfterChem=False)
