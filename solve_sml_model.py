@@ -323,8 +323,8 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
         O3_gain = (1/Rt)*100 # output units in cm/s
 
         #limit the frequency of timesteps written to file
-        if int(np.mod(i,(0.025/dt_max))) == 0:
-            row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
+        if int(np.mod(tstep,(0.025/dt_max))) == 0:
+            row_state = [dt_max*(tstep+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
                          Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]
 
             names = species_database['name'].values
@@ -363,14 +363,7 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
             print('WARNING: Convergence was not reached within 2x maximum run time provided - USE RESULTS WITH CAUTION')
 
     #final state write to file
-    if chem_scheme=='sml_cantera_base.yaml':
-        row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr]
-    elif chem_scheme=='sml_cantera_schneider.yaml' or \
-         chem_scheme=='sml_cantera_schneider_Clsen.yaml' or \
-         chem_scheme=='sml_cantera_schneider_Clsen2.yaml':
-         row_state = [dt_max*(i+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_HOCl]
-    else:
-         row_state = [dt_max*(tstep+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
+    row_state = [dt_max*(tstep+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
                       Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]#,h/10]
 
     names = species_database['name'].values
@@ -386,7 +379,7 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
         return state,species_database
 #####################################################################################################################
 #############################################################################################
-def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],pH=[8.0],S=35,\
+def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],pH_range=[8.0],S=35,\
                     chemistry='sml_cantera_base.yaml',outputdir='new_base',con_Iod=False,rate='magi',\
                     R=0.9,dt_max=0.0001,t_total=4,ConcAfterChem=False):
 
@@ -394,28 +387,30 @@ def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],pH=[8
         for I in I_range:
             for ws in ws_range:
                 for T in T_range:
-                    spec_database = define_species_database()
-                    spec_database.loc[spec_database['name'] == 'I-', ['conc']] = I*1E-9
-                    spec_database.loc[spec_database['name'] == 'I-_bulk', ['conc']] = I*1E-9
-                    O3_val = O3*4.15E-11
-                    spec_database.loc[spec_database['name']=='O3g',['conc']] = O3_val
-                    protons = 1*10**(-1*pH)
-                    spec_database.loc[spec_database['name']=='H+',['conc']] = protons
-                    spec_database.loc[spec_database['name']=='H+_bulk',['conc']] = protons
-                    spec_database.loc[spec_database['name']=='OH-',['conc']] = 1e-14/protons
-                    spec_database.loc[spec_database['name']=='OH-_bulk',['conc']] = 1e-14/protons
+                    for pH in pH_range:
+                        spec_database = define_species_database()
+                        spec_database.loc[spec_database['name'] == 'I-', ['conc']] = I*1E-9
+                        spec_database.loc[spec_database['name'] == 'I-_bulk', ['conc']] = I*1E-9
+                        O3_val = O3*4.15E-11
+                        spec_database.loc[spec_database['name']=='O3g',['conc']] = O3_val
+                        protons = 1*10**(-1*pH)
+                        spec_database.loc[spec_database['name']=='H+',['conc']] = protons
+                        spec_database.loc[spec_database['name']=='H+_bulk',['conc']] = protons
+                        spec_database.loc[spec_database['name']=='OH-',['conc']] = 1e-14/protons
+                        spec_database.loc[spec_database['name']=='OH-_bulk',['conc']] = 1e-14/protons
 
-                    if ConcAfterChem:
-                        result,spec_database,CAC = new_model(T,ws,S,spec_database,dt_max,t_total,\
-                                                             con_Iod=con_Iod,chem_scheme=chemistry,\
-                                                             rate=rate,R=R,ConcAfterChem=ConcAfterChem)
-                        CAC.to_csv(f'{outputdir}/ConcAfterChem_O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
-                    else: 
-                        result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,\
-                                                        con_Iod=con_Iod,chem_scheme=chemistry,\
-                                                        rate=rate,R=R)
+                        if ConcAfterChem:
+                            result,spec_database,CAC = new_model(T,ws,S,spec_database,dt_max,t_total,\
+                                                                 con_Iod=con_Iod,chem_scheme=chemistry,\
+                                                                 rate=rate,R=R,\
+                                                                 ConcAfterChem=ConcAfterChem)
+                            CAC.to_csv(f'{outputdir}/ConcAfterChem_O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
+                        else: 
+                            result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,\
+                                                            con_Iod=con_Iod,chem_scheme=chemistry,\
+                                                            rate=rate,R=R,ConcAfterChem=ConcAfterChem)
                 
-                    result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
+                        result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
 #############################################################################################
 if __name__ == "__main__":
  
@@ -429,13 +424,13 @@ if __name__ == "__main__":
     S = 35
     R = 0.9
     dt_max = 0.0002
-    t_total = 15
+    t_total = 4
     O3_val = O3*4.15E-11
     chems = ['brown_cl']
     con_Iod = [False]
     rate = ['brown']
     outdir = ['./']
-    run_sensitivity(ws_range=[ws],T_range=[T],O3_range=[O3],I_range=[I],pH=[pH],\
+    run_sensitivity(ws_range=[ws],T_range=[T],O3_range=[O3],I_range=[I],pH_range=[pH],\
                     chemistry=f'sml_cantera_{chems[0]}.yaml',S=S,\
                     outputdir=outdir[0],con_Iod=con_Iod[0],rate=rate[0],R=R,\
                     dt_max=dt_max,t_total=t_total,ConcAfterChem=False)
