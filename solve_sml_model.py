@@ -23,63 +23,67 @@ def define_species_database():
     HOI tVar 5862
     """
 
-    names = ["name",     'conc',  "mw",  "KH",  "tVar","C","H","O","N","Br","Cl","F","I","S","rings","db","tb"]
-    data = [["O3g"      ,1.25E-9 ,48.0  ,0.01  ,2800  ,0,  0,  3,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["HOIg"     ,2.83E-14,143.91,415   ,0     ,0,  1,  1,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["I2g"      ,2.35E-16,259.81,2.84  ,4300  ,0,  0,  0,  0,  0,   0,   0,  2,  0,  0,0,0],\
-            ["I-_bulk"  ,1.0E-7  ,126.9 ,0.006 ,2300  ,0,  0,  0,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["HOI_bulk" ,0.0     ,143.91,415   ,0     ,0,  1,  1,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["I2_bulk"  ,0.0     ,259.81,2.84  ,4300  ,0,  0,  0,  0,  0,   0,   0,  2,  0,  0,0,0],\
-            ["I-"       ,1.0E-7  ,126.9 ,0.006 ,2300  ,0,  0,  0,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["O3"       ,0.0     ,48.0  ,0.01  ,2800  ,0,  0,  3,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["HOI"      ,0.0     ,143.91,415   ,0     ,0,  1,  1,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["H+"       ,1.0e-8  ,1.01  ,2.6E-4,0     ,0,  1,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["O2"       ,0.0     ,32    ,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["H2O"      ,55.5    ,18.02 ,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["OH-"      ,1.0E-6  ,17.01 ,0.29  ,4300  ,0,  1,  1,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["Cl-"      ,0.55    ,35.45 ,2.3E-2,0     ,0,  0,  0,  0,  0,   1,   0,  0,  0,  0,0,0],\
-            ["Br-"      ,8.6E-4  ,79.90 ,1.2E-2,0     ,0,  0,  0,  0,  1,   0,   0,  0,  0,  0,0,0],\
-            ["IO3-"     ,2.0E-7  ,174.9 ,0     ,0     ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["I2"       ,0.0     ,259.81,2.84  ,4300  ,0,  0,  0,  0,  0,   0,   0,  2,  0,  0,0,0],\
-            ["I2OH-"    ,0.0     ,270.82,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["I3-"      ,0.0     ,380.71,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["IO-"      ,0.0     ,142.90,0     ,0     ,0,  0,  1,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["H2OI+"    ,0.0     ,144.92,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["HIO2"     ,0.0     ,159.91,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["IBr"      ,0.0     ,206.81,24.3  ,0     ,0,  0,  0,  0,  1,   0,   0,  1,  0,  0,0,0],\
-            ["ICl"      ,0.0     ,162.36,111   ,0     ,0,  0,  0,  0,  0,   1,   0,  1,  0,  0,0,0],\
-            ["I2Cl-"    ,0.0     ,289.26,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["ICl2-"    ,0.0     ,197.81,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["HOCl"     ,0.0     ,52.46 ,658   ,5900  ,0,  1,  1,  0,  0,   1,   0,  0,  0,  0,0,0],\
-            ["HOBr"     ,0.0     ,96.91 ,131   ,0     ,0,  1,  1,  0,  1,   0,   0,  0,  0,  0,0,0],\
-            ["BrCl"     ,0.0     ,115.36,0.98  ,5600  ,0,  0,  0,  0,  1,   1,   0,  0,  0,  0,0,0],\
-            ["Br2"      ,0.0     ,159.81,0.73  ,4400  ,0,  0,  0,  0,  2,   0,   0,  0,  0,  0,0,0],\
-            ["Br2Cl-"   ,0.0     ,195.26,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["BrCl2-"   ,0.0     ,150.81,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["Cl2"      ,0.0     ,70.91 ,0.09  ,2000  ,0,  0,  0,  0,  0,   2,   0,  0,  0,  0,0,0],\
-            ["OH-_bulk" ,1.0E-6  ,17.01 ,0.29  ,4300  ,0,  1,  1,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["H+_bulk"  ,1.0e-8  ,1.01  ,2.6E-4,0     ,0,  1,  0,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["Br-_bulk" ,8.6E-4  ,79.90 ,1.2E-2,4300  ,0,  0,  0,  0,  1,   0,   0,  0,  0,  0,0,0],\
-            ["Cl-_bulk" ,0.55    ,35.45 ,2.3E-2,4300  ,0,  0,  0,  0,  0,   1,   0,  0,  0,  0,0,0],\
-            ["IBrg"     ,0       ,206.81,24.3  ,0     ,0,  0,  0,  0,  1,   0,   0,  1,  0,  0,0,0],\
-            ["IClg"     ,0       ,162.36,111   ,0     ,0,  0,  0,  0,  0,   1,   0,  1,  0,  0,0,0],\
-            ["O3_bulk"  ,0.0     ,48.0  ,0.01  ,2800  ,0,  0,  3,  0,  0,   0,   0,  0,  0,  0,0,0],\
-            ["IBr_bulk" ,0.0     ,206.81,24.3  ,0     ,0,  0,  0,  0,  1,   0,   0,  1,  0,  0,0,0],\
-            ["ICl_bulk" ,0.0     ,162.36,111   ,0     ,0,  0,  0,  0,  0,   1,   0,  1,  0,  0,0,0],\
-            ["HOCl_bulk",0.0     ,52.46 ,658   ,5900  ,0,  1,  1,  0,  0,   1,   0,  0,  0,  0,0,0],\
-            ["HOBr_bulk",0.0     ,96.91 ,131   ,0     ,0,  1,  1,  0,  1,   0,   0,  0,  0,  0,0,0],\
-            ["Br2_bulk" ,0.0     ,159.81,0.73  ,4400  ,0,  0,  0,  0,  2,   0,   0,  0,  0,  0,0,0],\
-            ["Cl2_bulk" ,0.0     ,70.91 ,0.09  ,2000  ,0,  0,  0,  0,  0,   2,   0,  0,  0,  0,0,0],\
-            ["HOClg"    ,0.0     ,52.46 ,658   ,5900  ,0,  1,  1,  0,  0,   1,   0,  0,  0,  0,0,0],\
-            ["HOBrg"    ,0.0     ,96.91 ,131   ,0     ,0,  1,  1,  0,  1,   0,   0,  0,  0,  0,0,0],\
-            ["Br2g"     ,0.0     ,159.81,0.73  ,4400  ,0,  0,  0,  0,  2,   0,   0,  0,  0,  0,0,0],\
-            ["Cl2g"     ,0.0     ,70.91 ,0.09  ,2000  ,0,  0,  0,  0,  0,   2,   0,  0,  0,  0,0,0],\
-            ["IO3-_bulk",2.0E-7  ,174.9 ,0     ,0     ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["BrClg"    ,0       ,115.36,0.98  ,5600  ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["BrCl_bulk",0       ,115.36,0.98  ,5600  ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0],\
-            ["IO-_bulk" ,0.0     ,142.90,0     ,0     ,0,  0,  1,  0,  0,   0,   0,  1,  0,  0,0,0]]
+    names = ["name",     'conc',  "mw",  "KH",  "tVar","C","H","O","N","Br","Cl","F","I","S","rings","db","tb",\
+               "ka","kH","kw"]
+    data = [["O3g"      ,1.25E-9 ,48.0  ,0.01  ,2800  ,0,  0,  3,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOIg"     ,2.83E-14,143.91,415   ,0     ,0,  1,  1,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["I2g"      ,2.35E-16,259.81,2.84  ,4300  ,0,  0,  0,  0,  0,   0,   0,  2,  0,  0,0,0,0,0,0],\
+            ["I-_bulk"  ,1.0E-7  ,126.9 ,0.006 ,2300  ,0,  0,  0,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["HOI_bulk" ,0.0     ,143.91,415   ,0     ,0,  1,  1,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["I2_bulk"  ,0.0     ,259.81,2.84  ,4300  ,0,  0,  0,  0,  0,   0,   0,  2,  0,  0,0,0,0,0,0],\
+            ["I-"       ,1.0E-7  ,126.9 ,0.006 ,2300  ,0,  0,  0,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["O3"       ,0.0     ,48.0  ,0.01  ,2800  ,0,  0,  3,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOI"      ,0.0     ,143.91,415   ,0     ,0,  1,  1,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["H+"       ,1.0e-8  ,1.01  ,2.6E-4,0     ,0,  1,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["O2"       ,0.0     ,32    ,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["H2O"      ,55.5    ,18.02 ,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["OH-"      ,1.0E-6  ,17.01 ,0.29  ,4300  ,0,  1,  1,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Cl-"      ,0.55    ,35.45 ,2.3E-2,0     ,0,  0,  0,  0,  0,   1,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Br-"      ,8.6E-4  ,79.90 ,1.2E-2,0     ,0,  0,  0,  0,  1,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["IO3-"     ,2.0E-7  ,174.9 ,0     ,0     ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["I2"       ,0.0     ,259.81,2.84  ,4300  ,0,  0,  0,  0,  0,   0,   0,  2,  0,  0,0,0,0,0,0],\
+            ["I2OH-"    ,0.0     ,270.82,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["I3-"      ,0.0     ,380.71,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["IO-"      ,0.0     ,142.90,0     ,0     ,0,  0,  1,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["H2OI+"    ,0.0     ,144.92,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HIO2"     ,0.0     ,159.91,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["IBr"      ,0.0     ,206.81,24.3  ,0     ,0,  0,  0,  0,  1,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["ICl"      ,0.0     ,162.36,111   ,0     ,0,  0,  0,  0,  0,   1,   0,  1,  0,  0,0,0,0,0,0],\
+            ["I2Cl-"    ,0.0     ,289.26,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["ICl2-"    ,0.0     ,197.81,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOCl"     ,0.0     ,52.46 ,658   ,5900  ,0,  1,  1,  0,  0,   1,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOBr"     ,0.0     ,96.91 ,131   ,0     ,0,  1,  1,  0,  1,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["BrCl"     ,0.0     ,115.36,0.98  ,5600  ,0,  0,  0,  0,  1,   1,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Br2"      ,0.0     ,159.81,0.73  ,4400  ,0,  0,  0,  0,  2,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Br2Cl-"   ,0.0     ,195.26,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["BrCl2-"   ,0.0     ,150.81,0     ,0     ,0,  0,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Cl2"      ,0.0     ,70.91 ,0.09  ,2000  ,0,  0,  0,  0,  0,   2,   0,  0,  0,  0,0,0,0,0,0],\
+            ["OH-_bulk" ,1.0E-6  ,17.01 ,0.29  ,4300  ,0,  1,  1,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["H+_bulk"  ,1.0e-8  ,1.01  ,2.6E-4,0     ,0,  1,  0,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Br-_bulk" ,8.6E-4  ,79.90 ,1.2E-2,4300  ,0,  0,  0,  0,  1,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Cl-_bulk" ,0.55    ,35.45 ,2.3E-2,4300  ,0,  0,  0,  0,  0,   1,   0,  0,  0,  0,0,0,0,0,0],\
+            ["IBrg"     ,0       ,206.81,24.3  ,0     ,0,  0,  0,  0,  1,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["IClg"     ,0       ,162.36,111   ,0     ,0,  0,  0,  0,  0,   1,   0,  1,  0,  0,0,0,0,0,0],\
+            ["O3_bulk"  ,0.0     ,48.0  ,0.01  ,2800  ,0,  0,  3,  0,  0,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["IBr_bulk" ,0.0     ,206.81,24.3  ,0     ,0,  0,  0,  0,  1,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["ICl_bulk" ,0.0     ,162.36,111   ,0     ,0,  0,  0,  0,  0,   1,   0,  1,  0,  0,0,0,0,0,0],\
+            ["HOCl_bulk",0.0     ,52.46 ,658   ,5900  ,0,  1,  1,  0,  0,   1,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOBr_bulk",0.0     ,96.91 ,131   ,0     ,0,  1,  1,  0,  1,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Br2_bulk" ,0.0     ,159.81,0.73  ,4400  ,0,  0,  0,  0,  2,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Cl2_bulk" ,0.0     ,70.91 ,0.09  ,2000  ,0,  0,  0,  0,  0,   2,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOClg"    ,0.0     ,52.46 ,658   ,5900  ,0,  1,  1,  0,  0,   1,   0,  0,  0,  0,0,0,0,0,0],\
+            ["HOBrg"    ,0.0     ,96.91 ,131   ,0     ,0,  1,  1,  0,  1,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Br2g"     ,0.0     ,159.81,0.73  ,4400  ,0,  0,  0,  0,  2,   0,   0,  0,  0,  0,0,0,0,0,0],\
+            ["Cl2g"     ,0.0     ,70.91 ,0.09  ,2000  ,0,  0,  0,  0,  0,   2,   0,  0,  0,  0,0,0,0,0,0],\
+            ["IO3-_bulk",2.0E-7  ,174.9 ,0     ,0     ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["BrClg"    ,0       ,115.36,0.98  ,5600  ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["BrCl_bulk",0       ,115.36,0.98  ,5600  ,0,  0,  3,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0],\
+            ["IO-_bulk" ,0.0     ,142.90,0     ,0     ,0,  0,  1,  0,  0,   0,   0,  1,  0,  0,0,0,0,0,0]]
 
     species_database = pd.DataFrame(data,columns=names)
+
+    species_database['index_col'] = species_database['name']
+    species_database.set_index('index_col',inplace=True)
 
     return species_database
 ####################################################################################################################
@@ -100,7 +104,7 @@ def SML_h(T,species_database,scheme):
 
     D = 1.1e-6*np.exp(-1896/T)
     K0 = O3_Iod_rate(T,scheme)
-    h = np.sqrt(D/(K0 * species_database.loc[species_database['name'] == 'I-', ['conc']].values[0][0]))
+    h = np.sqrt(D/(K0 * species_database.at['I-','conc']))
 
     return h
 #####################################################################################################################
@@ -146,13 +150,12 @@ def Chemistry_solver(species_database,T=288,dt_max=0.00001,eqn_file='sml_cantera
 
     output = states.to_pandas()
     #get the final row of data for end state of solver
-    end_state = output.loc[output.index==output.index.values[-1]]
+    end_state = output.iloc[output.index.values[-1]]
 
     #convert back from mass fractions to concentrations and update species_database
     for index,row in species_database.iterrows():
         if row['name'] not in ignore_list:
-            species_database.loc[index,'conc'] = (end_state[f'Y_{row["name"]}'].values[0]\
-                                        *total_mass)/row['mw']
+            species_database.at[index,'conc'] = (end_state[f'Y_{row["name"]}']*total_mass)/row['mw']
 
     return species_database
 ####################################################################################################################
@@ -220,6 +223,27 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
     if ConcAfterChem:
         CAC = pd.DataFrame(columns=["Time"]+species_database['name'].values.tolist())
 
+    #pre-calculate constants for mixed species
+    #don't need to includes conversion of U [10m wind speed] from m/s to dm/s as
+    #this cancels to be a unitless multiplier
+    k_surf_ren = ((2*(3.42E-3*u+2.7E-3))/(np.pi*(0.235*u+4.935)))
+    bulk_mix_ind = []
+    for spec in bulk_mix_specs:
+        spec_comp = get_comp_dict(species_database,spec)
+        #calculate kw in m/s, convert to dm/s from m/s
+        kw = transfer.kw(spec_comp,T-273.15,u,S)*10
+        species_database.at[spec, 'kw']= kw
+    air_mix_ind = []
+    for spec in air_mix_specs:
+        
+        spec_comp = get_comp_dict(species_database,spec)
+        # calculate ka and convert to dm/s from m/s
+        ka = transfer.ka(spec_comp,u,T-273.15)*10
+        species_database.at[spec, 'ka']= ka
+        kH = transfer.KH(spec_comp,T-273.15,S)
+        species_database.at[spec, 'kH']= kH
+        
+
     #initialise paramaters for convergence criteria tracking
     tstep = 0
     convergence = False
@@ -233,48 +257,34 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
             names = species_database['name'].values
             row_state = [dt_max*(i+1)]
             for j in range(len(names)):
-                row_state.append(species_database.loc[species_database['name'] == \
-                                                 names[j], ['conc']].values[0][0])
+                row_state.append(species_database.at[names[j],'conc'])
             row_state = pd.Series(row_state,index=CAC.columns)
             CAC = CAC.append(row_state,ignore_index=True)
 
         #calculate the change in SML concentration due to surface renewal
         for spec in bulk_mix_specs:
-            bulk = species_database.loc[species_database['name'] == \
-                                        f'{spec}_bulk', ['conc']].values[0][0]
-            sml  = species_database.loc[species_database['name'] == \
-                                        f'{spec}', ['conc']].values[0][0]
-            #don't need to includes conversion of U [10m wind speed] from m/s to dm/s as
-            #this cancels to be a unitless multiplier
-            surf_renewal = ((2*(3.42E-3*u+2.7E-3))/(np.pi*(0.235*u+4.935)))*\
-                           (bulk - sml)*dt_max
-            species_database.loc[species_database['name'] == f'{spec}', ['conc']] = \
-                sml + surf_renewal
+            #calculate the change in SML concentration due to surface renewal
+            bulk = species_database.at[f'{spec}_bulk', 'conc']
+            sml  = species_database.at[spec, 'conc']
+            surf_renewal = k_surf_ren*(bulk - sml)*dt_max
+            species_database.at[spec,'conc'] = sml + surf_renewal
         
-        #calculate moleclar transfer to bulk water
-        for spec in bulk_mix_specs:
-            spec_comp = get_comp_dict(species_database,spec)
-            bulk = species_database.loc[species_database['name'] == \
-                                       f'{spec}_bulk', ['conc']].values[0][0]
-            sml  = species_database.loc[species_database['name'] == \
-                                         f'{spec}', ['conc']].values[0][0]
-            #calculate kw in m/s, convert to dm/s from m/s
-            kw = transfer.kw(spec_comp,T-273.15,u,S)*10
+            #calculate moleclar transfer to bulk water
+              #update to the latest SML concentration (this might not be needed)
+            sml  = species_database.at[spec, 'conc']
+            kw = species_database.at[spec, 'kw']
             flux = R*kw*(bulk - sml)
-            species_database.loc[species_database['name'] == f'{spec}', ['conc']]= sml \
-                                            + flux*dt_max/h
-        #calculate moleclar transfer to atmosphere
+            species_database.at[spec, 'conc']= sml + flux*dt_max/h
+
+        #calculate atmosphere exchange        
         for spec in air_mix_specs:
-            spec_comp = get_comp_dict(species_database,spec)
-            gas  = species_database.loc[species_database['name'] == f'{spec}g', \
-                                        ['conc']].values[0][0]
-            sml  = species_database.loc[species_database['name'] == f'{spec}', \
-                                       ['conc']].values[0][0]
-            # calculate ka and convert to dm/s from m/s
-            ka = transfer.ka(spec_comp,u,T-273.15)*10
-            flux = ka*(transfer.KH(spec_comp,T-273.15,S)*sml - gas) #molec /dm2 /s
-            species_database.loc[species_database['name'] == f'{spec}', \
-                                    ['conc']] = sml - flux*dt_max/h
+            #calculate moleclar transfer to atmosphere
+            gas  = species_database.at[f'{spec}g','conc']
+            sml  = species_database.at[spec, 'conc']
+            ka = species_database.at[spec, 'ka']
+            kH = species_database.at[spec, 'kH']
+            flux = ka*(kH*sml - gas) #molec /dm2 /s
+            species_database.at[spec, 'conc'] = sml - flux*dt_max/h
 
             # return flux of species in mol/cm2/s
             if spec == 'I2':
@@ -286,9 +296,9 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
             elif spec == 'HOI':
                 FluxA_HOI = flux/100
             elif spec == 'HOBr':
-                Flux_HOBr = flux
+                Flux_HOBr = flux/100
             elif spec == 'HOCl':
-                Flux_HOCl = flux
+                Flux_HOCl = flux/100
             elif spec == 'ICl':
                 Flux_ICl = flux/100
             elif spec == 'IBr':
@@ -296,13 +306,9 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
             elif spec == 'BrCl':
                 Flux_BrCl = flux/100
             
-        spec_comp = get_comp_dict(species_database,'O3')
-        gas  = species_database.loc[species_database['name'] == f'O3g', \
-                                   ['conc']].values[0][0]
-        sml  = species_database.loc[species_database['name'] == f'O3', \
-                                   ['conc']].values[0][0]
-        a = react*species_database.loc[species_database['name'] == f'I-', \
-                                   ['conc']].values[0][0]
+        gas  = species_database.at['O3g', 'conc']
+        sml  = species_database.at['O3', 'conc']
+        a = react*species_database.at['I-','conc']
         dm = np.sqrt(Diff/a)
         lamb = dm*np.sqrt(a/Diff)
         epsd = np.sqrt(((4*a)/(0.4*u_star_w))*(dm+Diff/(0.4*u_star_w)))
@@ -316,10 +322,9 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
                                              sp.k0(epsd)*np.sinh(lamb)))
 
         Rt = (Ra + Rb + Rc) #s/m
-        flux = (1/Rt)*10*(gas - transfer.KH(spec_comp,T-273.15,S)*sml) #molec /dm2 /s
+        flux = (1/Rt)*10*(gas - species_database.at['O3', 'kH']*sml) #molec /dm2 /s
 
-        species_database.loc[species_database['name'] == f'O3', \
-                            ['conc']] = sml + flux*dt_max/h
+        species_database.at['O3', 'conc'] = sml + flux*dt_max/h
         O3_gain = (1/Rt)*100 # output units in cm/s
 
         #limit the frequency of timesteps written to file
@@ -329,26 +334,19 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
 
             names = species_database['name'].values
             for j in range(len(names)):
-                row_state.append(species_database.loc[species_database['name'] == \
-                                                 names[j], ['conc']].values[0][0])
+                row_state.append(species_database.at[names[j], 'conc'])
             row_state = pd.Series(row_state,index=state.columns)
             state = state.append(row_state,ignore_index=True)
 
         #force reset of H+ to maintain constant pH
-        species_database.loc[species_database['name'] == f'H+', ['conc']]  = \
-             species_database.loc[species_database['name'] == f'H+_bulk', \
-                                        ['conc']].values[0][0]
-        species_database.loc[species_database['name'] == f'OH-', ['conc']]  = \
-             species_database.loc[species_database['name'] == f'OH-_bulk', \
-                                        ['conc']].values[0][0]
+        species_database.at['H+', 'conc']  = species_database.at['H+_bulk', 'conc']
+        species_database.at['OH-', 'conc'] = species_database.at['OH-_bulk', 'conc']
 
         if con_Iod: #if you want to force constant I- in SML
-            species_database.loc[species_database['name'] == f'I-', ['conc']]  = \
-                 species_database.loc[species_database['name'] == f'I-_bulk', \
-                                            ['conc']].values[0][0]
+            species_database.at['I-', 'conc']  = species_database.loc['I-_bulk', 'conc']
 
         #zero out O2 as this is a dead end in the system       
-        species_database.loc[species_database['name'] == f'O2', ['conc']]  = 0.0
+        species_database.at['O2', 'conc']  = 0.0
         
         # stabalised HOI flux is our flag for deciding if we have reached equilibirum, while allowing for a minimum run time
         if ((np.abs(FluxA_HOI-prev_dep)/prev_dep)*100 < 1e-4) & (tstep>1000):
@@ -364,12 +362,11 @@ def new_model(T,u,S,species_database,dt_max,t_total,con_Iod=False,\
 
     #final state write to file
     row_state = [dt_max*(tstep+1),FluxA_I2,FluxA_HOI,O3_gain,Flux_ICl,Flux_IBr,\
-                      Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]#,h/10]
+                      Flux_HOBr,Flux_HOCl,Flux_Br2,Flux_Cl2,Flux_BrCl]
 
     names = species_database['name'].values
     for j in range(len(names)):
-        row_state.append(species_database.loc[species_database['name'] == \
-                                     names[j], ['conc']].values[0][0])
+        row_state.append(species_database.at[names[j], 'conc'])
     row_state = pd.Series(row_state,index=state.columns)
     state = state.append(row_state,ignore_index=True)
 
@@ -389,15 +386,15 @@ def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],pH_ra
                 for T in T_range:
                     for pH in pH_range:
                         spec_database = define_species_database()
-                        spec_database.loc[spec_database['name'] == 'I-', ['conc']] = I*1E-9
-                        spec_database.loc[spec_database['name'] == 'I-_bulk', ['conc']] = I*1E-9
+                        spec_database.at['I-', 'conc'] = I*1E-9
+                        spec_database.at['I-_bulk', 'conc'] = I*1E-9
                         O3_val = O3*4.15E-11
-                        spec_database.loc[spec_database['name']=='O3g',['conc']] = O3_val
+                        spec_database.at['O3g','conc'] = O3_val
                         protons = 1*10**(-1*pH)
-                        spec_database.loc[spec_database['name']=='H+',['conc']] = protons
-                        spec_database.loc[spec_database['name']=='H+_bulk',['conc']] = protons
-                        spec_database.loc[spec_database['name']=='OH-',['conc']] = 1e-14/protons
-                        spec_database.loc[spec_database['name']=='OH-_bulk',['conc']] = 1e-14/protons
+                        spec_database.at['H+','conc'] = protons
+                        spec_database.at['H+_bulk','conc'] = protons
+                        spec_database.at['OH-','conc'] = 1e-14/protons
+                        spec_database.at['OH-_bulk','conc'] = 1e-14/protons
 
                         if ConcAfterChem:
                             result,spec_database,CAC = new_model(T,ws,S,spec_database,dt_max,t_total,\
@@ -409,18 +406,19 @@ def run_sensitivity(T_range=[296],ws_range=[7],O3_range=[30],I_range=[100],pH_ra
                             result,spec_database= new_model(T,ws,S,spec_database,dt_max,t_total,\
                                                             con_Iod=con_Iod,chem_scheme=chemistry,\
                                                             rate=rate,R=R,ConcAfterChem=ConcAfterChem)
-                
+
+                        print(f'writing file O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
                         result.to_csv(f'{outputdir}/O3{O3}_I{I}_ws{ws}_T{T}_pH{pH}.csv')
 #############################################################################################
 if __name__ == "__main__":
  
     
     args = sys.argv
-    O3 = float(args[1])
-    I  = float(args[2])
-    ws = float(args[3])
-    T  = float(args[4])
-    pH = float(args[5])
+    O3 = np.asarray([15,30,45])#float(args[1]))
+    I  = np.asarray([50,100,150])#float(args[2]))
+    ws = np.arange(0.1,11.1,1.0)#np.asarray(float(args[3]))
+    T  = np.asarray([280,290,300])#np.asarray(float(args[4]))
+    pH = np.asarray([8.0])#float(args[5]))
     S = 35
     R = 0.9
     dt_max = 0.0002
@@ -429,8 +427,8 @@ if __name__ == "__main__":
     chems = ['brown_cl']
     con_Iod = [False]
     rate = ['brown']
-    outdir = ['./']
-    run_sensitivity(ws_range=[ws],T_range=[T],O3_range=[O3],I_range=[I],pH_range=[pH],\
+    outdir = ['../SML_Model_Testing/Base']
+    run_sensitivity(ws_range=ws,T_range=T,O3_range=O3,I_range=I,pH_range=pH,\
                     chemistry=f'sml_cantera_{chems[0]}.yaml',S=S,\
                     outputdir=outdir[0],con_Iod=con_Iod[0],rate=rate[0],R=R,\
                     dt_max=dt_max,t_total=t_total,ConcAfterChem=False)
