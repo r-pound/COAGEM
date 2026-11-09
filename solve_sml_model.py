@@ -91,7 +91,8 @@ def O3_Iod_rate(T,scheme):
     central definitions of the O3 + I- rate coefficient
     """
     if scheme == 'brown':
-        K = 2.6E11*np.exp((-10600/(8.31*T)))
+        #K = 2.6E11*np.exp((-10600/(8.31*T)))
+        K = 5.4E10*np.exp((-7000/(8.31*T)))
     elif scheme == 'magi':
         K = np.exp((-8772.2/T)+51.5)
     return K    
@@ -418,12 +419,12 @@ if __name__ == "__main__":
     S = 35
     R = 0.9
     dt_max = 0.0002
-    t_total = 4
+    t_total = 8
     O3_val = O3*4.15E-11
-    chems = ['brown_cl']
+    chems = ['scheme']
     con_Iod = [False]
     rate = ['brown']
-    outdir = ['../SML_Model_Testing/Base']
+    outdir = ['../SML_Model_Testing/Corrected_chem_rates']
     run_sensitivity(ws_range=ws,T_range=T,O3_range=O3,I_range=I,pH_range=pH,\
                     chemistry=f'sml_cantera_{chems[0]}.yaml',S=S,\
                     outputdir=outdir[0],con_Iod=con_Iod[0],rate=rate[0],R=R,\
